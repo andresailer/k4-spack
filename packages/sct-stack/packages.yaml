@@ -1,0 +1,57 @@
+
+packages:
+  range-v3:
+    # avoid building doxygen
+    variants: ~doc
+  geant4:
+    variants: ~qt~opengl+vecgeom cxxstd=17
+  marlin:
+    # avoid building mariadb
+    variants: ~lccd
+  mesa:
+    # avoid building llvm
+    variants: ~llvm+glx+opengl swr=none
+  boost:
+    variants: +python cxxstd=17
+  dd4hep:
+    variants: +geant4+lcio+hepmc3
+  xercesc:
+    variants: cxxstd=17
+  root:
+    version: [6.22.06]
+    variants: +davix+gsl+asimage+math~memstat+minuit+mlp~mysql+opengl~postgres~pythia6+pythia8+python~qt4+r+root7+rootfit+rpath~shadow+sqlite+ssl~table+tbb+threads+tmva+unuran+vc+vdt+vmc+x+xml+xrootd build_type=RelWithDebInfo patches=22af3471f3fd87c0fe8917bf9c811c6d806de6c8b9867d30a1e3d383a1b929d7
+  # avoid issue https://github.com/spack/spack/issues/16803
+  # and use variant that allows to install older versions of whizard
+  ocaml:
+    version: [4.10.0]
+    variants: ~force-safe-string
+  # Avoid concretizer conflict for edm4hep
+  pythia8:
+    version: [8303]
+  gaudi:
+    version: [35.0]
+  # gaudi v34 does not work with python 3.8
+  # setting the version explicitly avoids concretizer errors
+  python:
+    version: [3.8.6, 3.7, 2.7]
+  delphes:
+    # includes some fixes to the trackcovariance module that are
+    # needed in fccsw
+    version: [3.4.3pre06]
+  # for compatibility with tensorflow
+  py-numpy:
+    version: [1.18.5]
+  py-tensorflow:
+    variants: [~cuda~nccl]
+  # build error on centos7 with version 7.1.0
+  fmt:
+    version: [6.1.2]
+  k4fwcore:
+    version: [0.2.0]
+  # todo: remove at the next big rebuild
+  marlin:
+   version: [1.17]
+  all:
+    target: [sandybridge]
+    compiler: [gcc@9.3.0]
+    variants: cxxstd=17
